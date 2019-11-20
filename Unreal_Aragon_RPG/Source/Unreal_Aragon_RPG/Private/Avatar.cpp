@@ -2,6 +2,8 @@
 
 #include "Components/InputComponent.h"
 #include "Engine/World.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/Actor.h"
 #include "Avatar.h"
 
 // Sets default values
