@@ -53,11 +53,7 @@ Binaries/*
 Plugins/*/Binaries/*
 
 # Starter Content
-Content/StarterContent/Textures
 Content/StarterContent/HDRI
-
-# Anim Starter Pack
-Content/AnimStarterPack/*
 
 # Builds
 Build/*
