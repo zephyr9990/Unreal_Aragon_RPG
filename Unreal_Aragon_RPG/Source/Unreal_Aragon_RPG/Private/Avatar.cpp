@@ -38,39 +38,41 @@ void AAvatar::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("Yaw", this, &AAvatar::RotateYaw);
 }
 
-void AAvatar::MoveForward(float amount)
+void AAvatar::MoveForward(float Amount)
 {
 	// Don't enter the body of this function if Controller is not set up yet,
 	// or if the amount to move is equal to 0.
-	if (Controller && amount)
+	if (Controller && Amount)
 	{
-		FVector forward = GetActorForwardVector();
+		FVector Forward = GetActorForwardVector();
 		// we call AddMovementInput to actually move the
 		// player by "amount" in the "forward" direction
-		AddMovementInput(forward, amount);
+		AddMovementInput(Forward, Amount);
+		
 	}
 }
 
-void AAvatar::MoveRight(float amount)
+void AAvatar::MoveRight(float Amount)
 {
 	// Don't enter the body of this function if Controller is not set up yet,
 	// or if the amount to move is equal to 0.
-	if (Controller && amount)
+	if (Controller && Amount)
 	{
-		FVector right = GetActorRightVector();
+		FVector Right = GetActorRightVector();
 		// we call AddMovementInput to actually move the
-		// player by "amount" in the "forward" direction
-		AddMovementInput(right, amount);
+		// player by "amount" in the "right" direction
+		AddMovementInput(Right, Amount);
+		
 	}
 }
 
-void AAvatar::RotateYaw(float amount)
+void AAvatar::RotateYaw(float Amount)
 {
-	AddControllerYawInput(LookSensitivity * amount * GetWorld()->GetDeltaSeconds());
+	AddControllerYawInput(LookSensitivity * Amount * GetWorld()->GetDeltaSeconds());
 }
 
-void AAvatar::RotatePitch(float amount)
+void AAvatar::RotatePitch(float Amount)
 {
-	AddControllerPitchInput(LookSensitivity * amount * GetWorld()->GetDeltaSeconds());
+	AddControllerPitchInput(LookSensitivity * Amount * GetWorld()->GetDeltaSeconds());
 }
 

@@ -27,16 +27,16 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	// Move player forward
-	void MoveForward(float amount);
+	void MoveForward(float Amount);
 
 	// Move player right
-	void MoveRight(float amount);
+	void MoveRight(float Amount);
 
 	// Controls player yaw 
-	void RotateYaw(float amount);
+	void RotateYaw(float Amount);
 
 	// Controls player pitch
-	void RotatePitch(float amount);
+	void RotatePitch(float Amount);
 
 private:
 	float LookSensitivity = 200.0f;

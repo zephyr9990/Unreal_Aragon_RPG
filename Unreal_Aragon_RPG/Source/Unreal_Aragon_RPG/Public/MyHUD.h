@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
-#include "Engine/Texture2D.h"
 #include "MyHUD.generated.h"
+
+// Forward Declaration
+class UTexture2D;
 
 struct Message
 {
@@ -44,15 +46,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = HUDFont)
 	UFont* HUDFont;
 
-	TArray<Message> messages;
+	TArray<Message> Messages;
 
 	// Draws the HUD
 	void DrawHUD() override;
 
-	void DrawMessages(int c);
+	void DrawMessages(int Index);
 
 	// Adds a message to the display
-	void AddMessage(Message msg);
+	void AddMessage(Message Msg);
 
 	void DrawHealthBar();
 };

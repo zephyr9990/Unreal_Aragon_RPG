@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Components/SphereComponent.h"
 #include "NPC.generated.h"
+
+// Forward Declaration
+class USphereComponent;
 
 UCLASS()
 class UNREAL_ARAGON_RPG_API ANPC : public ACharacter

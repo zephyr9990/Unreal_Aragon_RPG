@@ -13,7 +13,7 @@ void AMyHUD::DrawHUD()
 {
 	Super::DrawHUD();
 
-	for (int i = messages.Num() - 1; i >= 0; i--)
+	for (int i = Messages.Num() - 1; i >= 0; i--)
 	{
 		DrawMessages(i);
 	}
@@ -21,65 +21,65 @@ void AMyHUD::DrawHUD()
 	DrawHealthBar();
 }
 
-void AMyHUD::DrawMessages(int index)
+void AMyHUD::DrawMessages(int Index)
 {
 	// draw the backround box the right size for the message.
-	float outputWidth, outputHeight;
+	float OutputWidth, OutputHeight;
 	float pad = 10.0f;
-	GetTextSize(messages[index].message, OUT outputWidth, OUT outputHeight,
+	GetTextSize(Messages[Index].message, OUT OutputWidth, OUT OutputHeight,
 		HUDFont, 1.f);
 
-	float messageH = outputHeight + 2.0f * pad;
+	float MessageH = OutputHeight + 2.0f * pad;
 	float x = 0.0f;
-	float y = index * messageH;
+	float y = Index * MessageH;
 
 	// black backing
-	DrawRect(FLinearColor::Black, x, y, Canvas->SizeX, messageH);
+	DrawRect(FLinearColor::Black, x, y, Canvas->SizeX, MessageH);
 
 	// draw face
-	DrawTexture(messages[index].face, x, y, messageH, messageH, 0, 0, 1, 1);
+	DrawTexture(Messages[Index].face, x, y, MessageH, MessageH, 0, 0, 1, 1);
 
 	// draw our message using the HUDfont
-	DrawText(messages[index].message, messages[index].color, x + pad * 4,
+	DrawText(Messages[Index].message, Messages[Index].color, x + pad * 4,
 		y + pad, HUDFont);
 
 	// reduce lifetime by the time that passed since last frame.
-	messages[index].time -= GetWorld()->GetDeltaSeconds();
+	Messages[Index].time -= GetWorld()->GetDeltaSeconds();
 
 	// if the message's time is up, remove it.
-	if (messages[index].time < 0)
+	if (Messages[Index].time < 0)
 	{
-		messages.RemoveAt(index);
+		Messages.RemoveAt(Index);
 	}
 }
 
-void AMyHUD::AddMessage(Message msg)
+void AMyHUD::AddMessage(Message Msg)
 {
-	messages.Add(msg);
+	Messages.Add(Msg);
 }
 
 void AMyHUD::DrawHealthBar()
 {
-	AAvatar* avatar = Cast<AAvatar>(
+	AAvatar* Avatar = Cast<AAvatar>(
 		UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
-	float barWidth = 200, barHeight = 50, barPad = 12, barMargin = 50;
+	float BarWidth = 200, BarHeight = 50, BarPad = 12, BarMargin = 50;
 	float HPPercent = 1;// TODO add variable for HP and maxHP in Avatar.h;
 	
 	// Background
 	DrawRect(
 		FLinearColor(0, 0, 0, 1),
-		Canvas->SizeX - barWidth - barPad - barMargin,
-		Canvas->SizeY - barHeight - barPad - barMargin,
-		barWidth + 2 * barPad,
-		barHeight + 2 * barPad
+		Canvas->SizeX - BarWidth - BarPad - BarMargin,
+		Canvas->SizeY - BarHeight - BarPad - BarMargin,
+		BarWidth + 2 * BarPad,
+		BarHeight + 2 * BarPad
 	);
 
 	// Health
 	DrawRect(
 		FLinearColor(1 - HPPercent, HPPercent, 0, 1),
-		Canvas->SizeX - barWidth - barMargin,
-		Canvas->SizeY - barHeight - barMargin,
-		barWidth * HPPercent,
-		barHeight
+		Canvas->SizeX - BarWidth - BarMargin,
+		Canvas->SizeY - BarHeight - BarMargin,
+		BarWidth * HPPercent,
+		BarHeight
 	);
 }

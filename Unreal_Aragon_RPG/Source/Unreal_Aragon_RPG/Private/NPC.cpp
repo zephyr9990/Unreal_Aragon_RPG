@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "NPC.h"
+#include "Components/SphereComponent.h"
 #include "Avatar.h"
 #include "MyHUD.h"
 #include "GameFramework/PlayerController.h"
-
+#include "NPC.h"
 
 // Sets default values
 ANPC::ANPC()
