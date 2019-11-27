@@ -17,7 +17,6 @@ class UNREAL_ARAGON_RPG_API ANPC : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ANPC();
-	ANPC(const class FObjectInitializer& PCIP);
 
 protected:
 	// Called when the game starts or when spawned

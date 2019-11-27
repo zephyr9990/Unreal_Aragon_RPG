@@ -13,13 +13,20 @@ ANPC::ANPC()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	ProxSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Proximity Sphere"));
+	ProxSphere->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	ProxSphere->SetSphereRadius(150.0f);
+
+	// Code to make ANPC::Prox() run when this proximity sphere
+	// overlaps another actor
+	ProxSphere->OnComponentBeginOverlap.AddDynamic(this, &ANPC::Prox);
+	NpcMessage = NpcMessage; // default message, can be edited in blueprints.
 }
 
 // Called when the game starts or when spawned
 void ANPC::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -34,20 +41,6 @@ void ANPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-}
-
-ANPC::ANPC(const class FObjectInitializer& PCIP) 
-	: Super(PCIP)
-{
-	ProxSphere = PCIP.CreateDefaultSubobject<USphereComponent>(this,
-		TEXT("Proximity Sphere"));
-	ProxSphere->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	ProxSphere->SetSphereRadius(150.0f);
-
-	// Code to make ANPC::Prox() run when this proximity sphere
-	// overlaps another actor
-	ProxSphere->OnComponentBeginOverlap.AddDynamic(this, &ANPC::Prox);
-	NpcMessage = NpcMessage; // default message, can be edited in blueprints.
 }
 
 // ANPC::Prox() is ANPC::Prox_Implementation here.
