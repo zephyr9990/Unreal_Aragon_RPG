@@ -3,3 +3,12 @@
 
 #include "RPGGameMode.h"
 
+UBehaviorTree* ARPGGameMode::GetEnemyBehaviorTree()
+{
+	return EnemyBehaviorTree;
+}
+
+UBlackboardData* ARPGGameMode::GetEnemyBlackboard()
+{
+	return EnemyBlackboard;
+}

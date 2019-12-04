@@ -3,11 +3,19 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "CombatCharacter.h"
+#include "BattleAIController.h"
+
 #include "Avatar.generated.h"
 
+// Forward Declarations
+class UInventoryComponent;
+class UCharacterWeapon;
+class UCameraComponent;
+class ATargetPoint;
+
 UCLASS()
-class UNREAL_ARAGON_RPG_API AAvatar : public ACharacter
+class UNREAL_ARAGON_RPG_API AAvatar : public ACombatCharacter
 {
 	GENERATED_BODY()
 
@@ -38,6 +46,13 @@ public:
 	// Controls player pitch
 	void RotatePitch(float Amount);
 
+	UPROPERTY(BlueprintReadWrite, Category = "Character Info")
+	ATargetPoint* PlayerStartingPosition; 
+
+	bool IfTimeToSwap(int32 NumberOfTurns, int32 AttackerIndex) override;
+
 private:
 	float LookSensitivity = 200.0f;
+
+	int32 CurrentWeaponIndex = 0;
 };

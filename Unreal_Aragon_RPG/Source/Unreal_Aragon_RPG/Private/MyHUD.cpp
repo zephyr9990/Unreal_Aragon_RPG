@@ -6,6 +6,7 @@
 #include "Math/Vector2D.h"
 #include "Engine/Canvas.h"
 #include "Kismet/GameplayStatics.h"
+#include "BattlePlayerController.h"
 
 #define OUT
 
@@ -60,11 +61,12 @@ void AMyHUD::AddMessage(Message Msg)
 
 void AMyHUD::DrawHealthBar()
 {
-	AAvatar* Avatar = Cast<AAvatar>(
-		UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+	ABattlePlayerController* Player = Cast<ABattlePlayerController>(
+		UGameplayStatics::GetPlayerController(GetWorld(), 0));
+	AAvatar* Avatar = Player->GetControlledAvatar();
 	float BarWidth = 200, BarHeight = 50, BarPad = 12, BarMargin = 50;
-	float HPPercent = 1;// TODO add variable for HP and maxHP in Avatar.h;
-	
+	float HPPercent = Avatar->GetPercentHP();
+
 	// Background
 	DrawRect(
 		FLinearColor(0, 0, 0, 1),

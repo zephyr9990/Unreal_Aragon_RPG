@@ -1,17 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "NPC.h"
 
 #include "Components/SphereComponent.h"
 #include "Avatar.h"
 #include "MyHUD.h"
 #include "GameFramework/PlayerController.h"
-#include "NPC.h"
 
 // Sets default values
 ANPC::ANPC()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	ProxSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Proximity Sphere"));
 	ProxSphere->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
@@ -49,7 +49,7 @@ void ANPC::Prox_Implementation(UPrimitiveComponent* HitComp, AActor* OtherActor,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
 
-	// if the overlapped actor is not th eplayer
+	// if the overlapped actor is not the player
 	// you should just simply return from the function
 	if (Cast<AAvatar>(OtherActor) == nullptr)
 	{
@@ -60,7 +60,7 @@ void ANPC::Prox_Implementation(UPrimitiveComponent* HitComp, AActor* OtherActor,
 	if (PController)
 	{
 		FString FullNPCMessage = Name + FString(": ") + NpcMessage;
-		UE_LOG(LogTemp, Warning, TEXT("Prox fired. Full message is: %s"), *FullNPCMessage);
+		UE_LOG(LogTemp, Warning, TEXT("Prox fired for %s. Full message is: %s"), *OtherActor->GetName(), *FullNPCMessage);
 
 		AMyHUD* HUD = Cast<AMyHUD>(PController->GetHUD());
 		HUD->AddMessage(Message(Face, FullNPCMessage, 5.0f, FColor::White));
