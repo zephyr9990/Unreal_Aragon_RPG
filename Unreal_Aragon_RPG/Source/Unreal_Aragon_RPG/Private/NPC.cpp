@@ -1,21 +1,21 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+#include "NPC.h"
 
 #include "Components/SphereComponent.h"
 #include "Avatar.h"
 #include "MyHUD.h"
 #include "GameFramework/PlayerController.h"
-#include "NPC.h"
 
 // Sets default values
 ANPC::ANPC()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	ProxSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Proximity Sphere"));
 	ProxSphere->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	ProxSphere->SetSphereRadius(150.0f);
+	ProxSphere->SetSphereRadius(ProxSphereRadius);
 
 	// Code to make ANPC::Prox() run when this proximity sphere
 	// overlaps another actor
@@ -51,7 +51,8 @@ void ANPC::Prox_Implementation(UPrimitiveComponent* HitComp, AActor* OtherActor,
 
 	// if the overlapped actor is not th eplayer
 	// you should just simply return from the function
-	if (Cast<AAvatar>(OtherActor) == nullptr)
+	AAvatar* Player = Cast<AAvatar>(OtherActor);
+	if (Player == nullptr)
 	{
 		return;
 	}

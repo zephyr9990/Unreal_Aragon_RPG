@@ -8,6 +8,7 @@
 
 // Forward Declaration
 class USphereComponent;
+class APickupItem;
 
 UCLASS()
 class UNREAL_ARAGON_RPG_API ANPC : public ACharacter
@@ -36,12 +37,15 @@ public:
 	void Prox(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCMessage)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCMessage")
 	FString Name;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCMessage)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCMessage")
 	FString NpcMessage;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = NPCMessage)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NPCMessage")
 	UTexture2D* Face;
+
+private:
+	float ProxSphereRadius = 150.f;
 };

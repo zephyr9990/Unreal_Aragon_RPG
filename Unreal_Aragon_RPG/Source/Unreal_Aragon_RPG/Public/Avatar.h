@@ -4,7 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine/Engine.h"
 #include "Avatar.generated.h"
+
+
+// Forward Declaration
+class APickupItem;
+class AMyHUD;
 
 UCLASS()
 class UNREAL_ARAGON_RPG_API AAvatar : public ACharacter
@@ -38,6 +44,29 @@ public:
 	// Controls player pitch
 	void RotatePitch(float Amount);
 
+	// Toggle the inventory display
+	void ToggleInventory();
+
+	// member function for letting the avatar have an item
+	void Pickup(APickupItem* PickupItem);
+
+	// Passes click point information to the HUD when mouse is clicked.
+	void MouseClicked();
 private:
 	float LookSensitivity = 200.0f;
+
+	// A map for the player's backpack
+	TMap<FString, int> BackPack;
+
+	// The icons for the items in the backpack, lookup by string.
+	TMap<FString, UTexture2D*> Icons;
+
+	// A flag alerting us the UI is showing
+	bool bInventoryShowing;
+
+	// Reference to the player controller.
+	APlayerController* PController;
+
+	// Reference to the player's HUD
+	AMyHUD* HUD;
 };
