@@ -19,12 +19,15 @@ class UNREAL_ARAGON_RPG_API UItemDataAsset : public UDataAsset
 	GENERATED_BODY()
 
 public:
+	// The name of the item
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FString Name; // The name of the item
+	FString Name; 
 
+	// The quantity to give to players
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	int32 Quantity; // The quantity to give to players
+	int32 Quantity; 
 
+	// The icon of the item
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UTexture2D* Icon; // The icon of the item
+	UTexture2D* Icon; 
 };	
