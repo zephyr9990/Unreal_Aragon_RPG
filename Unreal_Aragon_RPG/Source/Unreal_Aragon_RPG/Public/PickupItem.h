@@ -18,7 +18,6 @@ public:
 	// Sets default values for this actor's properties
 	APickupItem();
 
-	APickupItem(FString Name, int32 Quantity, UStaticMeshComponent* Mesh, UTexture2D* Icon);
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

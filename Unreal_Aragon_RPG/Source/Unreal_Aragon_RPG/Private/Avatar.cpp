@@ -152,6 +152,29 @@ void AAvatar::Pickup(APickupItem* Item)
 	}
 }
 
+void AAvatar::Pickup(FString ItemName, int32 ItemQuantity, UTexture2D* ItemIcon)
+{
+
+	if (BackPack.Find(ItemName))
+	{
+		// the item was already in the pack... increase the quantity of it
+		BackPack[ItemName] += ItemQuantity;
+	}
+	else
+	{
+		// The item was not in the pack... add it now
+		BackPack.Add(ItemName, ItemQuantity);
+		Icons.Add(ItemName, ItemIcon);
+	}
+	
+	HUD->AddMessage(Message(
+		ItemIcon,
+		FString("Item received: ") + FString::FromInt(ItemQuantity) + FString(" ") + ItemName,
+		5.f,
+		FColor::White)
+	);
+}
+
 void AAvatar::MouseClicked()
 {
 	HUD->MouseClicked();

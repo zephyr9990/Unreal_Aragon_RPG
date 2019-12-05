@@ -35,14 +35,7 @@ APickupItem::APickupItem()
 	ProxSphere->AttachToComponent(Mesh, FAttachmentTransformRules::KeepRelativeTransform); // very important
 }
 
-APickupItem::APickupItem(FString Name, int32 Quantity, UStaticMeshComponent* Mesh, UTexture2D* Icon)
-{
-	PrimaryActorTick.bCanEverTick = false;
-	this->Name = Name;
-	this->Quantity = Quantity;
-	this->Mesh = Mesh;
-	this->Icon = Icon;
-}
+
 
 // Called when the game starts or when spawned
 void APickupItem::BeginPlay()

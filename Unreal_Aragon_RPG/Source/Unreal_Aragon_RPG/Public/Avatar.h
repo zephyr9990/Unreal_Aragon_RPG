@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Engine/Engine.h"
 #include "Avatar.generated.h"
 
 
@@ -49,6 +48,7 @@ public:
 
 	// member function for letting the avatar have an item
 	void Pickup(APickupItem* PickupItem);
+	void Pickup(FString ItemName, int32 ItemQuantity, UTexture2D* ItemIcon);
 
 	// Passes click point information to the HUD when mouse is clicked.
 	void MouseClicked();
@@ -69,4 +69,5 @@ private:
 
 	// Reference to the player's HUD
 	AMyHUD* HUD;
+
 };

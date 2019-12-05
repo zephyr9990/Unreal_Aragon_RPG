@@ -3,9 +3,11 @@
 #include "NPC.h"
 
 #include "Components/SphereComponent.h"
+#include "GameFramework/PlayerController.h"
 #include "Avatar.h"
 #include "MyHUD.h"
-#include "GameFramework/PlayerController.h"
+#include "ItemDataAsset.h"
+#include "PickupItem.h"
 
 // Sets default values
 ANPC::ANPC()
@@ -43,6 +45,11 @@ void ANPC::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void ANPC::GiveItem(AAvatar* Player, UItemDataAsset* ItemToGive)
+{
+	Player->Pickup(ItemToGive->Name, ItemToGive->Quantity, ItemToGive->Icon);
+}
+
 // ANPC::Prox() is ANPC::Prox_Implementation here.
 void ANPC::Prox_Implementation(UPrimitiveComponent* HitComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
@@ -56,7 +63,7 @@ void ANPC::Prox_Implementation(UPrimitiveComponent* HitComp, AActor* OtherActor,
 	{
 		return;
 	}
-	
+
 	APlayerController* PController = GetWorld()->GetFirstPlayerController();
 	if (PController)
 	{
@@ -65,5 +72,13 @@ void ANPC::Prox_Implementation(UPrimitiveComponent* HitComp, AActor* OtherActor,
 
 		AMyHUD* HUD = Cast<AMyHUD>(PController->GetHUD());
 		HUD->AddMessage(Message(Face, FullNPCMessage, 5.0f, FColor::White));
+	}
+
+	if (ItemsToGive.Num() > 0)
+	{
+		for (UItemDataAsset* Item : ItemsToGive)
+		{
+			GiveItem(Player, Item);
+		}
 	}
 }
