@@ -73,7 +73,7 @@ void AMyHUD::DrawHealthBar()
 	AAvatar* Avatar = Cast<AAvatar>(
 		UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	float BarWidth = 200, BarHeight = 50, BarPad = 12, BarMargin = 50;
-	float HPPercent = 1;// TODO add variable for HP and maxHP in Avatar.h;
+	float HPPercent = Avatar->Health / Avatar->MaxHealth;
 	
 	// Background
 	DrawRect(

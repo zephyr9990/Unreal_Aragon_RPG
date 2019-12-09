@@ -14,8 +14,8 @@
 AAvatar::AAvatar()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
-
+	PrimaryActorTick.bCanEverTick = true;
+	Health = MaxHealth;
 }
 
 // Called when the game starts or when spawned
@@ -32,6 +32,13 @@ void AAvatar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	// Apply knockback each frame if there is one
+	if (Knockback.Size())
+	{
+		AddMovementInput(Knockback, 1.0f);
+	}
+	// 
+	Knockback *= .5f;
 }
 
 // Called to bind functionality to input
@@ -135,6 +142,29 @@ void AAvatar::ToggleInventory()
 			HUD->AddWidget(ItemWidget(ItemIcon(ItemXQuanity, Texture)));
 		}
 	}
+}
+
+float AAvatar::TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	const float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+	if (ActualDamage > 0.0f)
+	{
+		Health -= ActualDamage;
+
+		if (Health < 0.0f)
+		{
+			Health = 0;
+		}
+	}
+
+	// reset previous knockback
+	Knockback = Knockback.ZeroVector;
+	// Knock the character back
+	Knockback = GetActorLocation() - DamageCauser->GetActorLocation();
+	Knockback.Normalize();
+	Knockback *= DamageAmount * 300; // Knockback porportional to damage.
+
+	return ActualDamage;
 }
 
 void AAvatar::Pickup(APickupItem* Item)

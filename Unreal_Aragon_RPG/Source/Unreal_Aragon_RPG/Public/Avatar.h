@@ -46,12 +46,21 @@ public:
 	// Toggle the inventory display
 	void ToggleInventory();
 
+	float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent,
+		AController* EventInstigator, AActor* DamageCauser) override;
+
 	// member function for letting the avatar have an item
 	void Pickup(APickupItem* PickupItem);
 	void Pickup(FString ItemName, int32 ItemQuantity, UTexture2D* ItemIcon);
 
 	// Passes click point information to the HUD when mouse is clicked.
 	void MouseClicked();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Health")
+	float MaxHealth = 100.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Health")
+	float Health;
 private:
 	float LookSensitivity = 200.0f;
 
@@ -70,4 +79,6 @@ private:
 	// Reference to the player's HUD
 	AMyHUD* HUD;
 
+	// Direction of knockback
+	FVector Knockback;
 };
